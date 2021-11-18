@@ -6,10 +6,11 @@ MIGRATE_DOWN_CMD=down
 # Default posgres credentials.
 DSN_PROTOCOL:=postgres
 DB_USER:=postgres
-DB_HOST:=127.0.0.2
+DB_HOST:=127.0.0.1
+DB_PORT:=5432
 DB_PASSWORD:=1234
-DB_DBNAME:=sample
-DB_DSN:=$(DSN_PROTOCOL)://$(PG_USER):$(PG_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DBNAME)?sslmode=disable
+DB_NAME:=sample
+DB_DSN:=$(DSN_PROTOCOL)://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=disable
 
 migrate_create:
 	$(MIGRATE_CMD) $(MIGRATE_CREATE_CMD) -ext sql -dir db/migrations -seq $(filter-out $@, $(MAKECMDGOALS))
