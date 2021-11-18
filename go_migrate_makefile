@@ -25,7 +25,7 @@ migrate_create:
 	$(MIGRATE_CMD) $(MIGRATE_CREATE_CMD) -ext sql -dir db/migrations -seq $(filter-out $@, $(MAKECMDGOALS))
 
 migrate_up:
-	$(MIGRATE_CMD) -path=${CURRENT_DIR}/db/migrations/ -database $(DB_DSN) $(MIGRATE_UP_CMD) && make gen_model
+	$(MIGRATE_CMD) -path=${CURRENT_DIR}/db/migrations/ -database $(DB_DSN) $(MIGRATE_UP_CMD)
 
 migrate_down:
 	$(MIGRATE_CMD) -path=${CURRENT_DIR}/db/migrations/ -database $(DB_DSN) $(MIGRATE_DOWN_CMD) $(filter-out $@, $(MAKECMDGOALS))
