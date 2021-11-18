@@ -1,0 +1,21 @@
+MIGRATE_CMD=migrate
+MIGRATE_CREATE_CMD=create
+MIGRATE_UP_CMD=up
+MIGRATE_DOWN_CMD=down
+
+# Default posgres credentials.
+DSN_PROTOCOL:=postgres
+DB_USER:=postgres
+DB_HOST:=127.0.0.2
+DB_PASSWORD:=1234
+DB_DBNAME:=sample
+DB_DSN:=$(DSN_PROTOCOL)://$(PG_USER):$(PG_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DBNAME)?sslmode=disable
+
+migrate_create:
+	$(MIGRATE_CMD) $(MIGRATE_CREATE_CMD) -ext sql -dir db/migrations -seq $(filter-out $@, $(MAKECMDGOALS))
+
+migrate_up:
+	$(MIGRATE_CMD) -path=${CURRENT_DIR}/db/migrations/ -database $(DB_DSN) $(MIGRATE_UP_CMD) && make gen_model
+
+migrate_down:
+	$(MIGRATE_CMD) -path=${CURRENT_DIR}/db/migrations/ -database $(DB_DSN) $(MIGRATE_DOWN_CMD) $(filter-out $@, $(MAKECMDGOALS))
