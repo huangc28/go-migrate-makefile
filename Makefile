@@ -1,0 +1,1 @@
+-include ./go_migrate_makefile
