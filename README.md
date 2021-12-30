@@ -1,14 +1,37 @@
-## Why?
+## Purpose
 
-I use [go-migrate](https://github.com/golang-migrate/migrate) across different projects. I found myself repeatedly copy paste these commands everytime I created a new go project. I thought it might be a good idea to extract those commands out to better maintain it.
+Use this tool in pair with [go migrate package](https://github.com/golang-migrate/migrate).
 
+Remove redundant commands of the following migration actions:
 
-## Environment variables
+- [Create migrations](#create-migrations)
+- [Run migrations](#run-migrations)
+- [Rollback migrations](#rollback-migrations)
+
+## Create migrations
+
+```
+make migrate_create {migration_name}
+```
+
+## Run migrations
+
+```
+make migrate_up
+```
+
+## Rollback migrations
+
+```
+make migrate_down {steps_to_rollback}
+```
+
+## Replacing environment variables
 
 `go-migrate-makefile` uses following environment variables as setup to run `go-migrate` commands. Following are list of default env vars.
 
 ```
-DSN_PROTOCOL:=postgres
+DSN_PROTOCOL=postgres
 DB_USER:=postgres
 DB_HOST:=127.0.0.1
 DB_PASSWORD:=1234
@@ -50,12 +73,12 @@ endif
 You can include these commands to your `Makefile` like:
 
 ```
-include ./go_migrate_makefile
+include ./go_migrate.mk
 ```
 
 If you want make to simply ignore a makefile which does not exist or cannot be remade, with no error message, use the -include directive instead of include, like this:
 
 ```
--include ./go_migrate_makefile
+-include ./go_migrate.mk
 ```
 

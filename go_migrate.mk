@@ -1,3 +1,7 @@
+ifeq (, $(shell which migrate))
+ $(error "No go-migrate found in $(PATH). Install go-migrate before proceeding")
+endif
+
 MIGRATE_CMD=migrate
 MIGRATE_CREATE_CMD=create
 MIGRATE_UP_CMD=up
