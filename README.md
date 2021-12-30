@@ -8,6 +8,23 @@ Remove redundant commands of the following migration actions:
 - [Run migrations](#run-migrations)
 - [Rollback migrations](#rollback-migrations)
 
+## Usage
+
+Include `go_migrate.mk` in your Makefile:
+
+```
+include ./go_migrate.mk
+```
+
+or
+
+```
+-include ./go_migrate.mk
+```
+
+The above ignores the error message if `go_migrate.mk` does not exist.
+
+
 ## Create migrations
 
 ```
@@ -28,7 +45,7 @@ make migrate_down {steps_to_rollback}
 
 ## Replacing environment variables
 
-`go-migrate-makefile` uses following environment variables as setup to run `go-migrate` commands. Following are list of default env vars.
+`go-migrate-makefile` uses following environment variables as the default setup to run `go-migrate` commands. Following are list of default env vars.
 
 ```
 DSN_PROTOCOL=postgres
@@ -39,7 +56,12 @@ DB_DBNAME:=sample
 DB_DSN:=$(DSN_PROTOCOL)://$(PG_USER):$(PG_PASSWORD)@$(PG_HOST):$(PG_PORT)/$(PG_DBNAME)?sslmode=disable
 ```
 
-You can override it to suite your need:
+You can override any of the above to to suite your need:
+
+
+## Override default DB env variables from your dot env file
+
+Include the following code in your Makefile to replace the default DB env variables.
 
 **.env**
 
@@ -51,11 +73,10 @@ DB_DBNAME:=somedb
 
 ```
 
-**Makfile**
+**Makefile**
 
 ```
-# Include go_migrate_makefile
-include ./go_migrate_makefile
+include ./go_migrate.mk
 
 CURRENT_DIR = $(shell pwd)
 
@@ -68,17 +89,6 @@ endif
 ```
 
 
-## Include it in yor Makefile
 
-You can include these commands to your `Makefile` like:
 
-```
-include ./go_migrate.mk
-```
-
-If you want make to simply ignore a makefile which does not exist or cannot be remade, with no error message, use the -include directive instead of include, like this:
-
-```
--include ./go_migrate.mk
-```
 
