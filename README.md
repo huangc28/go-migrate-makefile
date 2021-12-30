@@ -70,7 +70,6 @@ DB_USER:=postgres
 DB_HOST:=127.0.0.2
 DB_PASSWORD:=4321
 DB_DBNAME:=somedb
-
 ```
 
 **Makefile**
@@ -85,10 +84,4 @@ ifneq (,$(wildcard ./.env))
 	include .app.env
 	export
 endif
-
 ```
-
-
-
-
-
