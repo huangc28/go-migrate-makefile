@@ -20,7 +20,7 @@ MIGRATION_DIR = $(CURRENT_DIR)/db/migrations
 
 DB_DSN=$(DSN_PROTOCOL)://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=disable
 
-migrate_create: done
+migrate_create:
 	$(MIGRATE_CMD) $(MIGRATE_CREATE_CMD) -ext sql -dir $(MIGRATION_DIR) -seq $(filter-out $@, $(MAKECMDGOALS))
 
 migrate_up:
